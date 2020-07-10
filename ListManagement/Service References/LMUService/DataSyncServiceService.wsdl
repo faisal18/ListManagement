@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://services.lmu.dimensions.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="DataSyncServiceService" targetNamespace="http://services.lmu.dimensions.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://services.lmu.dimensions.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="currentVersion" type="tns:currentVersion" />
+      <xs:element name="currentVersionResponse" type="tns:currentVersionResponse" />
+      <xs:element name="findChanges" type="tns:findChanges" />
+      <xs:element name="findChangesResponse" type="tns:findChangesResponse" />
+      <xs:element name="findRecords" type="tns:findRecords" />
+      <xs:element name="findRecordsResponse" type="tns:findRecordsResponse" />
+      <xs:complexType name="findRecords">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="authorizationCode" type="tns:authorizationCode" />
+          <xs:element minOccurs="0" name="listName" type="xs:string" />
+          <xs:element minOccurs="0" name="targetVersion" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="recordsIdsList" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="authorizationCode">
+        <xs:sequence>
+          <xs:element name="username" type="xs:string" />
+          <xs:element name="key" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findRecordsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RecordsResult" type="tns:recordsResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="recordsResult">
+        <xs:sequence>
+          <xs:element name="Success" type="xs:boolean" />
+          <xs:element minOccurs="0" name="msg" type="xs:string" />
+          <xs:element minOccurs="0" name="xmlContent" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="currentVersion">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="authorizationCode" type="tns:authorizationCode" />
+          <xs:element minOccurs="0" name="listName" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="currentVersionResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="VersionResult" type="tns:versionResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="versionResult">
+        <xs:sequence>
+          <xs:element name="success" type="xs:boolean" />
+          <xs:element minOccurs="0" name="msg" type="xs:string" />
+          <xs:element minOccurs="0" name="version" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findChanges">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="authorizationCode" type="tns:authorizationCode" />
+          <xs:element minOccurs="0" name="listName" type="xs:string" />
+          <xs:element minOccurs="0" name="localVersion" type="xs:int" />
+          <xs:element minOccurs="0" name="targetVersion" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findChangesResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ChangesResult" type="tns:changesResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="changesResult">
+        <xs:sequence>
+          <xs:element name="success" type="xs:boolean" />
+          <xs:element minOccurs="0" name="msg" type="xs:string" />
+          <xs:element minOccurs="0" name="currentVersion" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="records" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="findChanges">
+    <wsdl:part name="parameters" element="tns:findChanges" />
+  </wsdl:message>
+  <wsdl:message name="currentVersionResponse">
+    <wsdl:part name="parameters" element="tns:currentVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="findRecords">
+    <wsdl:part name="parameters" element="tns:findRecords" />
+  </wsdl:message>
+  <wsdl:message name="findRecordsResponse">
+    <wsdl:part name="parameters" element="tns:findRecordsResponse" />
+  </wsdl:message>
+  <wsdl:message name="currentVersion">
+    <wsdl:part name="parameters" element="tns:currentVersion" />
+  </wsdl:message>
+  <wsdl:message name="findChangesResponse">
+    <wsdl:part name="parameters" element="tns:findChangesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DataSyncService">
+    <wsdl:operation name="findRecords">
+      <wsdl:input name="findRecords" message="tns:findRecords" />
+      <wsdl:output name="findRecordsResponse" message="tns:findRecordsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="currentVersion">
+      <wsdl:input name="currentVersion" message="tns:currentVersion" />
+      <wsdl:output name="currentVersionResponse" message="tns:currentVersionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="findChanges">
+      <wsdl:input name="findChanges" message="tns:findChanges" />
+      <wsdl:output name="findChangesResponse" message="tns:findChangesResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DataSyncServiceServiceSoapBinding" type="tns:DataSyncService">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="currentVersion">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="currentVersion">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="currentVersionResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findRecords">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="findRecords">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="findRecordsResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findChanges">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input name="findChanges">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="findChangesResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DataSyncServiceService">
+    <wsdl:port name="DataSyncServicePort" binding="tns:DataSyncServiceServiceSoapBinding">
+      <soap12:address location="http://lmu.dimensions-healthcare.com/LMU/services/v1/dataSyncService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
