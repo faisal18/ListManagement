@@ -14,6 +14,7 @@ namespace ListManagement
 {
     public class Impersonator
     {
+
         #region "Consts"
 
         public const int LOGON32_LOGON_INTERACTIVE = 2;
